@@ -10,12 +10,11 @@ class Match :
       self.score2 = score2
 
     def to_dict(self):
-      return {
-          "player1": self.player1,
-          "player2": self.player2,
-          "score1": self.score1,
-          "score2": self.score2,
-      }
+        return (
+            [self.player1.chess_id, self.score1],
+            [self.player2.chess_id, self.score2]
+        )
+
     @classmethod
     def from_dict(cls, data) :
       return cls (

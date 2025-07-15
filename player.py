@@ -1,11 +1,11 @@
 class Player :
 
-    def __init__(self, nom, prenom, date_naissance, chess_id):
+    def __init__(self, nom, prenom, date_naissance, chess_id, score=0.0):
         self.nom = nom
         self.prenom = prenom
         self.date_naissance = date_naissance
         self.chess_id = chess_id
-        self.score = 0.0
+        self.score = score
 
     def update_score(self, points):
         self.score += points
@@ -25,5 +25,6 @@ class Player :
             data["nom"],
             data["prenom"],
             data["date de naissance"],
-            data["chess_id"]
+            data["chess_id"],
+            data["score"]
         )

@@ -1,9 +1,9 @@
 class Round :
-    def __init__(self, name, start_time, end_time, matches) :
+    def __init__(self, name, start_time, end_time=None, matches=None) :
       self.name = name
       self.start_time = start_time
       self.end_time = end_time
-      self.matches = []
+      self.matches = matches if matches else []
 
     def end_round(self, end_time):
       self.end_time = end_time
@@ -15,7 +15,7 @@ class Round :
           "name": self.name,
           "start_time": self.start_time,
           "end_time": self.end_time,
-          "matches": self.matches
+          "matches": [match.to_dict() for match in self.matches]
       }
     @classmethod
     def from_dict(cls, data):
