@@ -29,7 +29,6 @@ tournoi = Tournament(
 
 # Ajouter les joueurs au tournoi
 tournoi.add_players([player1, player2, player3, player4])
-
 print(f"Joueurs enregistrés dans le tournoi : {[p.nom for p in tournoi.players]}")
 
 # === TEST START ROUND ===
@@ -39,3 +38,16 @@ tournoi.start_round()
 # Afficher les infos du round créé
 round1 = tournoi.rounds[0]
 print(round1.to_dict())
+
+# === TEST END ROUND ===
+print("\n=== END ROUND ===")
+tournoi.end_round()
+
+# Vérifier les scores des joueurs après le round
+print("\nScores après le round :")
+for p in tournoi.players:
+    print(f"{p.nom} : {p.score} pts")
+
+# Vérifier le round mis à jour
+print("\nRound mis à jour :")
+print(tournoi.rounds[-1].to_dict())
