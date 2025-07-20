@@ -5,14 +5,18 @@ from models.round import Round
 
 class Tournament:
     def __init__(self, nom, localisation, date_debut, date_fin, description,
-                 rounds, players):
+                 rounds=None, players=None):
+        """
+        rounds & players sont optionnels (utiles pour recharger un tournoi).
+        Par défaut, ils sont initialisés comme des listes vides.
+        """
         self.nom = nom
         self.localisation = localisation
         self.date_debut = date_debut
         self.date_fin = date_fin
         self.description = description
-        self.rounds = []
-        self.players = []
+        self.rounds = rounds if rounds is not None else []
+        self.players = players if players is not None else []
 
     def add_players(self, new_players):
         """Ajoute une liste de joueurs au tournoi."""
