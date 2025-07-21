@@ -10,7 +10,8 @@ def afficher_menu():
     print("4. Clôturer le dernier round")
     print("5. voir l'historique des rounds")
     print("6. Voir le classement des joueurs")
-    print("7. Quitter")
+    print("7. Sauvegarder le tournoi")
+    print("8. Quitter")
 
 def main():
     """Création du tournois"""
@@ -72,10 +73,18 @@ def main():
             if not tournoi.players:
                 print("Aucun joueur enregistré.")
             else:
-                classement = sorted(tournoi.players, key=lambda p: p.score, reverse=true)
+                classement = sorted(tournoi.players, key=lambda p: p.score, reverse=True)
                 for i, p in enumerate(classement, start=1):
                     print(f"{i}. {p.nom} {p.prenom} ({p.chess_id}) | Score : '{p.score}")
         elif choix == "7":
+            import json
+            filename = input("nom du fichier de sauvegarde (ex: tounoi_paris.json: ")
+            if not filename.endswith(".json"):
+                filename +=".json"
+            with open(filename, "w") as f:
+                json.dump(tournoi.to_dict(), f, indent=2)
+            print(f"Tournoi sauvegarder dans {filename}")
+        elif choix == "8":
             print("Au revoir !")
             break
         else:

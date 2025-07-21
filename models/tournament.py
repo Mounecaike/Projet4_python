@@ -71,3 +71,15 @@ class Tournament:
         # Clôture officielle du round
         current_round.end_round("2025-07-15 16:00")
         print(f"✅ {current_round.name} terminé à {current_round.end_time}")
+
+    def to_dict(self):
+        """Convertit le tournoi en dictionnaire"""
+        return {
+            "nom": self.nom,
+            "localisation":self.localisation,
+            "date_debut": self.date_debut,
+            "date_fin": self.date_fin,
+            "description": self.description,
+            "players": [p.to_dict() for p in self.players],
+            "rounds": [r.to_dict() for r in self.rounds]
+        }
