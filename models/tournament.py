@@ -1,6 +1,7 @@
 import random
 from models.match import Match
 from models.round import Round
+from models.player import Player
 
 
 class Tournament:
@@ -83,3 +84,21 @@ class Tournament:
             "players": [p.to_dict() for p in self.players],
             "rounds": [r.to_dict() for r in self.rounds]
         }
+
+    @classmethod
+    def from_dict(cls, data):
+        """Recré un tournoi complet depuis un dictionnaire JSON.
+        """
+        players = [Player.from_dict(p) for p in data["players"]]
+        rounds = [Round.from_dict(r) for r in data ["rounds"]]
+
+        tournoi = cls(
+            nom=data["nom"],
+            localisation=data["localisation"],
+            date_debut=data["date_debut"],
+            date_fin=data["date_fin"],
+            description=data["description"],
+            rounds=rounds,
+            players=players
+        )
+        return tournoi
