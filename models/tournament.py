@@ -5,26 +5,26 @@ from models.player import Player
 
 
 class Tournament:
-    def __init__(self, nom, localisation, date_debut, date_fin, description,
+    def __init__(self, name, location, start_date, end_date, description,
                  rounds=None, players=None):
         """
-        rounds & players sont optionnels (utiles pour recharger un tournoi).
-        Par défaut, ils sont initialisés comme des listes vides.
+        rounds & players are optional (useful for loading a tournament).
+        By default, they are initialized as empty lists.
         """
-        self.nom = nom
-        self.localisation = localisation
-        self.date_debut = date_debut
-        self.date_fin = date_fin
+        self.name = name
+        self.location = location
+        self.start_date = start_date
+        self.end_date = end_date
         self.description = description
         self.rounds = rounds if rounds is not None else []
         self.players = players if players is not None else []
 
     def add_players(self, new_players):
-        """Ajoute une liste de joueurs au tournoi."""
+        """Add a list of players to the tournament."""
         self.players.extend(new_players)
 
     def start_round(self):
-        """Démarre un nouveau round et génère les matchs aléatoirement."""
+        """Start a new round and randomly generate matches."""
         round_number = len(self.rounds) + 1
         round_name = f"Round {round_number}"
 
@@ -33,7 +33,7 @@ class Tournament:
             start_time="2025-07-15 14:00"
         )
 
-        # Mélanger les joueurs pour créer des paires aléatoires
+        # Shuffle players to create random pairs
         shuffled_players = self.players[:]
         random.shuffle(shuffled_players)
 
@@ -46,40 +46,35 @@ class Tournament:
         self.rounds.append(new_round)
 
     def end_round(self):
-        """Clôture le dernier round en enregistrant les scores et l'heure de fin."""
+        """Close the last round by recording scores and end time."""
         if not self.rounds:
-            print("⚠ Aucun round n’a encore commencé.")
+            print("⚠ No round has started yet.")
             return
 
-        # Récupérer le round en cours
         current_round = self.rounds[-1]
-        print(f"\n=== Clôture de {current_round.name} ===")
+        print(f"\n=== Closing {current_round.name} ===")
 
         for match in current_round.matches:
-            print(f"\nMatch : {match.player1.nom} vs {match.player2.nom}")
+            print(f"\nMatch: {match.player1.last_name} vs {match.player2.last_name}")
 
-            # Saisie manuelle des scores
-            score1 = float(input(f"Score de {match.player1.nom} : "))
-            score2 = float(input(f"Score de {match.player2.nom} : "))
+            score1 = float(input(f"Score for {match.player1.last_name}: "))
+            score2 = float(input(f"Score for {match.player2.last_name}: "))
 
-            # Mise à jour du match
             match.set_result(score1, score2)
 
-            # Mise à jour des scores cumulés des joueurs
             match.player1.update_score(score1)
             match.player2.update_score(score2)
 
-        # Clôture officielle du round
         current_round.end_round("2025-07-15 16:00")
-        print(f"✅ {current_round.name} terminé à {current_round.end_time}")
+        print(f"✅ {current_round.name} finished at {current_round.end_time}")
 
     def to_dict(self):
-        """Convertit le tournoi en dictionnaire"""
+        """Convert the tournament to a dictionary"""
         return {
-            "nom": self.nom,
-            "localisation":self.localisation,
-            "date_debut": self.date_debut,
-            "date_fin": self.date_fin,
+            "name": self.name,
+            "location": self.location,
+            "start_date": self.start_date,
+            "end_date": self.end_date,
             "description": self.description,
             "players": [p.to_dict() for p in self.players],
             "rounds": [r.to_dict() for r in self.rounds]
@@ -87,18 +82,16 @@ class Tournament:
 
     @classmethod
     def from_dict(cls, data):
-        """Recré un tournoi complet depuis un dictionnaire JSON.
-        """
+        """Recreate a complete tournament from a JSON dict."""
         players = [Player.from_dict(p) for p in data["players"]]
-        rounds = [Round.from_dict(r) for r in data ["rounds"]]
+        rounds = [Round.from_dict(r) for r in data["rounds"]]
 
-        tournoi = cls(
-            nom=data["nom"],
-            localisation=data["localisation"],
-            date_debut=data["date_debut"],
-            date_fin=data["date_fin"],
+        return cls(
+            name=data["name"],
+            location=data["location"],
+            start_date=data["start_date"],
+            end_date=data["end_date"],
             description=data["description"],
             rounds=rounds,
             players=players
         )
-        return tournoi

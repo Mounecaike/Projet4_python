@@ -1,61 +1,62 @@
 class MenuView:
 
     @staticmethod
-    def afficher_menu():
-        print("\n=== MENU PRINCIPAL ===")
-        print("1. Ajouter un joueur")
-        print("2. Lister les joueurs")
-        print("3. Lancer un round")
-        print("4. Clôturer le dernier round")
-        print("5. Voir l’historique des rounds")
-        print("6. Voir le classement des joueurs")
-        print("7. Sauvegarder le tournoi")
-        print("8. Charger un tournoi existant")
-        print("9. Quitter")
+    def show_menu():
+        print("\n=== MAIN MENU ===")
+        print("1. Add a player")
+        print("2. List players")
+        print("3. Start a round")
+        print("4. Close the last round")
+        print("5. Show rounds history")
+        print("6. Show player ranking")
+        print("7. Save the tournament")
+        print("8. Load an existing tournament")
+        print("9. Exit")
+        print("10. Show tournament report")
 
     @staticmethod
-    def demander_info_joueur():
-        nom = input("Nom du joueur : ")
-        prenom = input("Prénom du joueur : ")
-        date_naissance = input("Date de naissance (YYYY-MM-DD) : ")
-        chess_id = input("Identifiant FIDE : ")
-        return nom, prenom, date_naissance, chess_id
+    def ask_player_info():
+        last_name = input("Player last name: ")
+        first_name = input("Player first name: ")
+        birth_date = input("Birth date (YYYY-MM-DD): ")
+        chess_id = input("FIDE ID: ")
+        return last_name, first_name, birth_date, chess_id
 
     @staticmethod
-    def afficher_joueurs(players):
-        """Affiche la liste des joueurs"""
+    def show_players(players):
+        """Display the list of players"""
         if not players:
-            print("⚠ Aucun joueur enregistré.")
+            print("⚠ No players registered.")
         else:
             for p in players:
-                print(f" - {p.nom} {p.prenom} ({p.chess_id}) | Score : {p.score}")
+                print(f" - {p.last_name} {p.first_name} ({p.chess_id}) | Score: {p.score}")
 
     @staticmethod
-    def afficher_historique(rounds):
-        """Affiche tous les rounds joués avec leurs matchs"""
+    def show_rounds_history(rounds):
+        """Display all played rounds with their matches"""
         if not rounds:
-            print("⚠ Aucun round joué pour le moment.")
+            print("⚠ No round played yet.")
         else:
             for r in rounds:
-                print(f"\n{r.name} | Début : {r.start_time} | Fin : {r.end_time or 'en cours...'}")
+                print(f"\n{r.name} | Start: {r.start_time} | End: {r.end_time or 'ongoing...'}")
                 for m in r.matches:
-                    print(f"  - {m.player1.nom} ({m.score1}) vs {m.player2.nom} ({m.score2})")
+                    print(f"  - {m.player1.last_name} ({m.score1}) vs {m.player2.last_name} ({m.score2})")
 
     @staticmethod
-    def afficher_classement(players):
-        """Affiche un classement des joueurs"""
+    def show_ranking(players):
+        """Display a ranking of players"""
         if not players:
-            print("⚠ Aucun joueur enregistré.")
+            print("⚠ No players registered.")
         else:
             for i, p in enumerate(players, start=1):
-                print(f"{i}. {p.nom} {p.prenom} ({p.chess_id}) | Score : {p.score}")
+                print(f"{i}. {p.last_name} {p.first_name} ({p.chess_id}) | Score: {p.score}")
 
     @staticmethod
-    def afficher_message(message):
-        """Affiche un message générique"""
+    def show_message(message):
+        """Display a generic message"""
         print(message)
 
     @staticmethod
-    def afficher_titre(titre):
-        """Affiche un titre formaté"""
-        print(f"\n=== {titre} ===")
+    def show_title(title):
+        """Display a formatted title"""
+        print(f"\n=== {title} ===")

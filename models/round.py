@@ -6,11 +6,11 @@ class Round:
         self.matches = matches if matches else []
 
     def end_round(self, end_time):
-        """Marque la fin du round en ajoutant la date/heure de fin."""
+        """Mark the round as finished by adding the end date/time."""
         self.end_time = end_time
 
     def to_dict(self):
-        """Retourne un dict avec les infos du round."""
+        """Return a dict with round information."""
         return {
             "name": self.name,
             "start_time": self.start_time,
@@ -20,7 +20,7 @@ class Round:
 
     @classmethod
     def from_dict(cls, data):
-        """Crée un round à partir d’un dict."""
+        """Create a round from a dict."""
         return cls(
             data["name"],
             data["start_time"],

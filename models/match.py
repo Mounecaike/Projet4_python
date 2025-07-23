@@ -6,12 +6,12 @@ class Match:
         self.score2 = score2
 
     def set_result(self, score1, score2):
-        """Met à jour les scores du match."""
+        """Update match scores."""
         self.score1 = score1
         self.score2 = score2
 
     def to_dict(self):
-        """Retourne une version simplifiée du match pour sauvegarde."""
+        """Return a simplified match representation for saving."""
         return (
             [self.player1.chess_id, self.score1],
             [self.player2.chess_id, self.score2]
@@ -19,7 +19,7 @@ class Match:
 
     @classmethod
     def from_dict(cls, data):
-        """Recrée un match à partir d’un dict (à adapter si besoin)."""
+        """Recreate a match from a dict (adapt if needed)."""
         return cls(
             data["player1"],
             data["player2"],
