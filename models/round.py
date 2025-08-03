@@ -1,3 +1,5 @@
+from models.match import Match
+
 class Round:
     def __init__(self, name, start_time, end_time=None, matches=None):
         self.name = name
@@ -20,10 +22,12 @@ class Round:
 
     @classmethod
     def from_dict(cls, data):
-        """Create a round from a dict."""
+        matches = [Match.from_dict(m) for m in data["matches"]]
         return cls(
             data["name"],
             data["start_time"],
             data["end_time"],
-            data["matches"]
+            matches
         )
+
+

@@ -9,79 +9,108 @@ from views.menu_view import MenuView
 class TournamentController:
     def __init__(self):
         # By default, start a new blank tournament
-        self.tournament = Tournament(
-            name="Test Tournament",
-            location="Paris",
-            start_date="2025-07-20",
-            end_date="2025-07-21",
-            description="Training tournament"
-        )
+        self.tournament = None
+
+    def start(self):
+        while True:
+            MenuView.show_pre_menu()
+            choice = input("Select an option: ")
+
+            if choice == "1":
+                self.create_tournament()
+                if self.tournament:
+                    break
+            elif choice == "2":
+                self.load_tournament()
+                if self.tournament:
+                    break
+            elif choice == "3":
+                MenuView.show_message("Goodbye!")
+                exit()
+            else:
+                MenuView.show_message("Invalid choice. Please try again.")
+
+        self.run()
+
+    def create_tournament(self):
+        MenuView.show_title("Create a new tournament")
+        name = input("Tournament name: ")
+        location = input("Location: ")
+        start_date = input("Start date (YYYY-MM-DD): ")
+        end_date = input("End date (YYYY-MM-DD): ")
+        description = input("Description: ")
+        self.tournament = Tournament(name, location, start_date, end_date, description)
+        MenuView.show_message(f"✅ Tournament '{self.tournament.name}' created successfully!")
 
     def run(self):
-        """Main menu loop"""
+        """Main menu loop for tournament management."""
         while True:
             MenuView.show_menu()
             choice = input("\nYour choice: ")
 
             if choice == "1":
-                # === Add a player ===
-                last_name, first_name, birth_date, chess_id = MenuView.ask_player_info()
-                player = Player(last_name, first_name, birth_date, chess_id)
-                self.tournament.add_players([player])
-                MenuView.show_message(f"✅ Player {player.last_name} {player.first_name} added successfully.")
-                self.auto_save()  # ✅ auto-save after adding player
-
+                self.manage_players()
             elif choice == "2":
-                # === List all players ===
-                MenuView.show_title("Players list")
-                MenuView.show_players(self.tournament.players)
-
+                self.manage_rounds()
             elif choice == "3":
-                # === Start a round ===
-                MenuView.show_title("Start a round")
+                self.show_report()
+            elif choice == "4":
+                self.save_tournament()
+            elif choice == "5":
+                self.load_tournament()
+            elif choice == "6":
+                MenuView.show_message("Goodbye!")
+                break
+            else:
+                MenuView.show_message("❌ Invalid choice, try again.")
+
+    def manage_rounds(self):
+        """Display the rounds management submenu and handle user actions."""
+        while True:
+            MenuView.show_round_menu()
+            choice = input("Your choice: ")
+            if choice == "1":
                 if len(self.tournament.players) < 2:
                     MenuView.show_message("⚠ Not enough players to start a round (minimum 2).")
                 else:
                     self.tournament.start_round()
                     MenuView.show_message("✅ Round started successfully.")
-                    self.auto_save()  # ✅ auto-save after starting a round
-
-            elif choice == "4":
-                # === Close the current round ===
+                    self.auto_save()
+            elif choice == "2":
                 if not self.tournament.rounds:
                     MenuView.show_message("⚠ No round to close, start a round first.")
                 else:
-                    MenuView.show_title("Closing current round")
-                    self.tournament.end_round()
-                    self.auto_save()  # ✅ auto-save after ending a round
-
-            elif choice == "5":
-                # === Rounds history ===
-                MenuView.show_title("Rounds history")
+                    last_round = self.tournament.rounds[-1]
+                    if last_round.end_time is not None:
+                        MenuView.show_message("⚠ The last round is already closed.")
+                    else:
+                        self.tournament.end_round()
+                        self.auto_save()
+            elif choice == "3":
                 MenuView.show_rounds_history(self.tournament.rounds)
+            elif choice == "4":
+                break
+            else:
+                MenuView.show_message("❌ Invalid choice, try again.")
 
-            elif choice == "6":
-                # === Player ranking ===
-                MenuView.show_title("Player ranking")
+    def manage_players(self):
+        """Display the player management submenu and handle user actions."""
+        while True:
+            MenuView.show_player_menu()
+            choice = input("Your choice: ")
+            if choice == "1":
+                last_name, first_name, birth_date, chess_id = MenuView.ask_player_info()
+                player = Player(last_name, first_name, birth_date, chess_id)
+                self.tournament.add_players([player])
+                MenuView.show_message(f"✅ Player {player.last_name} {player.first_name} added successfully.")
+                self.auto_save()
+            elif choice == "2":
+                MenuView.show_players(self.tournament.players)
+            elif choice == "3":
                 ranking = sorted(self.tournament.players, key=lambda p: p.score, reverse=True)
                 MenuView.show_ranking(ranking)
-
-            elif choice == "7":
-                # === Save the tournament ===
-                self.save_tournament()
-
-            elif choice == "8":
-                # === Load an existing tournament ===
-                self.load_tournament()
-
-            elif choice == "9":
-                MenuView.show_message("Goodbye!")
+            elif choice == "4":
                 break
-
-            elif choice == "10":
-                # ✅ NEW → Show full tournament report
-                self.show_report()
-
             else:
                 MenuView.show_message("❌ Invalid choice, try again.")
 
@@ -155,7 +184,7 @@ class TournamentController:
         for r in t.rounds:
             print(f"{r.name} | Start: {r.start_time} | End: {r.end_time or 'ongoing...'}")
             for m in r.matches:
-                print(f"  - {m.player1.last_name} ({m.score1}) vs {m.player2.last_name} ({m.score2})")
+                print(f"  - {m.player1} ({m.score1}) vs {m.player2} ({m.score2})")
 
         print("\n--- Final Ranking ---")
         ranking = sorted(t.players, key=lambda p: p.score, reverse=True)

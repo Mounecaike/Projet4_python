@@ -19,10 +19,11 @@ class Match:
 
     @classmethod
     def from_dict(cls, data):
-        """Recreate a match from a dict (adapt if needed)."""
-        return cls(
-            data["player1"],
-            data["player2"],
-            data["score1"],
-            data["score2"]
-        )
+        """
+        Recreate a match from a list like:
+        [[player1_id, score1], [player2_id, score2]]
+        """
+        player1_id, score1 = data[0]
+        player2_id, score2 = data[1]
+        return cls(player1_id, player2_id, score1, score2)
+

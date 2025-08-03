@@ -1,18 +1,39 @@
 class MenuView:
 
     @staticmethod
+    def show_pre_menu():
+        print("\n--- Welcome to Tournament Manager ---\n")
+        print("1.Create a new tournament")
+        print("2. Load an existing tournament")
+        print("3. Exit")
+
+
+    @staticmethod
     def show_menu():
         print("\n=== MAIN MENU ===")
+        print("1. Manage players")
+        print("2. Manage rounds")
+        print("3. Generate tournament report")
+        print("4. save the tournament")
+        print("5. Load an existing tounament")
+        print("6. Exit")
+
+    @staticmethod
+    def show_player_menu():
+        print("\n=== MANAGE PLAYERS ===")
         print("1. Add a player")
-        print("2. List players")
-        print("3. Start a round")
-        print("4. Close the last round")
-        print("5. Show rounds history")
-        print("6. Show player ranking")
-        print("7. Save the tournament")
-        print("8. Load an existing tournament")
-        print("9. Exit")
-        print("10. Show tournament report")
+        print("2. List all players")
+        print("3. Show ranking")
+        print("4. Return to main menu")
+
+    @staticmethod
+    def show_round_menu():
+        print("\n=== MANAGE ROUNDS ===")
+        print("1. Start a round")
+        print("2. Close current round")
+        print("3. Show rounds history")
+        print("4. Return to main menu")
+
 
     @staticmethod
     def ask_player_info():

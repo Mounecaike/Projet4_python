@@ -1,0 +1,4 @@
+[flake8]
+max-line-length = 110
+docstring-convention = pep257
+exclude = venv, .venv, __pycache__, saves, *.json
