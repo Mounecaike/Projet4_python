@@ -7,7 +7,6 @@ class MenuView:
         print("2. Load an existing tournament")
         print("3. Exit")
 
-
     @staticmethod
     def show_menu():
         print("\n=== MAIN MENU ===")
@@ -33,7 +32,6 @@ class MenuView:
         print("2. Close current round")
         print("3. Show rounds history")
         print("4. Return to main menu")
-
 
     @staticmethod
     def ask_player_info():

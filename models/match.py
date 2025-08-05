@@ -26,4 +26,3 @@ class Match:
         player1_id, score1 = data[0]
         player2_id, score2 = data[1]
         return cls(player1_id, player2_id, score1, score2)
-

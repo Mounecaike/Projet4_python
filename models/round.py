@@ -1,5 +1,6 @@
 from models.match import Match
 
+
 class Round:
     def __init__(self, name, start_time, end_time=None, matches=None):
         self.name = name
@@ -29,5 +30,3 @@ class Round:
             data["end_time"],
             matches
         )
-
-
