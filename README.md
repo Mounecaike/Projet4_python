@@ -26,7 +26,7 @@ cd <your_project_folder>
 ```bash
 python -m venv venv
 source venv/bin/activate    # Linux/Mac
-.env\Scriptsctivate     # Windows
+.env\Scriptsctivate     # Windows
 ```
 
 Install dependencies (not required, but Flake8 is recommended for code style):
@@ -96,22 +96,23 @@ project/
 - Flake8 HTML report possible (see `/flake-report`)
 - MVC separation: no business logic in Views, no input in Models
 
+### 📊 Flake8 Code Quality Report
+To check code quality and generate a full HTML report, run the following command at the root of your project (requires flake8 and flake8-html):
+```bash
+flake8 . --format=html --htmldir=flake-report
+```
+The report will be available in the flake-report/index.html file.
+
+Open it in your web browser to see a detailed summary of code style and possible errors.
 ## Customization
 
 - Adaptable for other sports, events, or GUI
 - Easy to add new views/entities thanks to MVC structure
 
-## Deliverables
-
-- Complete project code
-- Example save files (JSON)
-- Complete README
-- (Optional) Flake8 HTML code report
-- (Optional) PDF/annex for presentation
 
 ## Author
 
-Project developed for OpenClassrooms – Python Developer training  
+Project developed for a chess club management application 
 Author: Jordan Lachaume  
 Date: August 2025
 
