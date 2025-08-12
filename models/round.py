@@ -2,6 +2,7 @@ from models.match import Match
 
 
 class Round:
+    """Represents a tournament round with matches and start/end times."""
     def __init__(self, name, start_time, end_time=None, matches=None):
         self.name = name
         self.start_time = start_time

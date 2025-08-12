@@ -1,7 +1,9 @@
 class MenuView:
+    """Handles all console menus and user prompts."""
 
     @staticmethod
     def show_pre_menu():
+        """Displays the welcome pre-menu."""
         print("\n--- Welcome to Tournament Manager ---\n")
         print("1.Create a new tournament")
         print("2. Load an existing tournament")
@@ -9,6 +11,7 @@ class MenuView:
 
     @staticmethod
     def show_menu():
+        """Displays the main menu."""
         print("\n=== MAIN MENU ===")
         print("1. Manage players")
         print("2. Manage rounds")
@@ -19,6 +22,7 @@ class MenuView:
 
     @staticmethod
     def show_player_menu():
+        """Displays the player management submenu."""
         print("\n=== MANAGE PLAYERS ===")
         print("1. Add a player")
         print("2. List all players")
@@ -27,6 +31,7 @@ class MenuView:
 
     @staticmethod
     def show_round_menu():
+        """Displays the round management submenu."""
         print("\n=== MANAGE ROUNDS ===")
         print("1. Start a round")
         print("2. Close current round")
@@ -35,6 +40,7 @@ class MenuView:
 
     @staticmethod
     def ask_player_info():
+        """Asks the user to enter player details."""
         last_name = input("Player last name: ")
         first_name = input("Player first name: ")
         birth_date = input("Birth date (YYYY-MM-DD): ")

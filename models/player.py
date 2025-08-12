@@ -1,4 +1,5 @@
 class Player:
+    """Represents a chess player with identity and score."""
     def __init__(self, last_name, first_name, birth_date, chess_id, score=0.0):
         self.last_name = last_name
         self.first_name = first_name

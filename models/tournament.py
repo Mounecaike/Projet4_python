@@ -5,6 +5,7 @@ from models.player import Player
 
 
 class Tournament:
+    """Manages a tournament: players, rounds, and main logic."""
     def __init__(self, name, location, start_date, end_date, description,
                  rounds=None, players=None):
         """

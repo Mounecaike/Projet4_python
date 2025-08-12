@@ -7,11 +7,13 @@ from views.menu_view import MenuView
 
 
 class TournamentController:
+    """Controls the program flow between views and models."""
     def __init__(self):
         # By default, start a new blank tournament
         self.tournament = None
 
     def start(self):
+        """Shows the pre-menu and starts the tournament."""
         while True:
             MenuView.show_pre_menu()
             choice = input("Select an option: ")
@@ -33,6 +35,7 @@ class TournamentController:
         self.run()
 
     def create_tournament(self):
+        """Creates a new tournament from user input."""
         MenuView.show_title("Create a new tournament")
         name = input("Tournament name: ")
         location = input("Location: ")

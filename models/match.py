@@ -1,4 +1,5 @@
 class Match:
+    """Represents a match between two players and their scores."""
     def __init__(self, player1, player2, score1, score2):
         self.player1 = player1
         self.player2 = player2
