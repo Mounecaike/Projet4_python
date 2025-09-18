@@ -12,11 +12,15 @@ class Match:
         self.score2 = score2
 
     def to_dict(self):
-        """Return a simplified match representation for saving."""
-        return (
-            [self.player1.chess_id, self.score1],
-            [self.player2.chess_id, self.score2]
-        )
+        """Serialize match to dict even if players are strings (IDs)."""
+        p1_id = self.player1.chess_id if hasattr(self.player1, "chess_id") else self.player1
+        p2_id = self.player2.chess_id if hasattr(self.player2, "chess_id") else self.player2
+        return {
+            "players": [
+                [p1_id, self.score1],
+                [p2_id, self.score2],
+            ]
+        }
 
     @classmethod
     def from_dict(cls, data):
