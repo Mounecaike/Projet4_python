@@ -58,14 +58,27 @@ class MenuView:
 
     @staticmethod
     def show_rounds_history(rounds):
-        """Display all played rounds with their matches"""
+        """Show rounds and matches (works with Player objects or ID strings)."""
         if not rounds:
             print("⚠ No round played yet.")
-        else:
-            for r in rounds:
-                print(f"\n{r.name} | Start: {r.start_time} | End: {r.end_time or 'ongoing...'}")
-                for m in r.matches:
-                    print(f"  - {m.player1.last_name} ({m.score1}) vs {m.player2.last_name} ({m.score2})")
+            return
+
+        def safe_name(p):
+            # si c'est un Player -> on concatène nom + prénom
+            # sinon (str / autre) -> on convertit en texte
+            if hasattr(p, "last_name"):
+                first = getattr(p, "first_name", "")
+                last = getattr(p, "last_name", "")
+                full = f"{last} {first}".strip()
+                return full if full else str(p)
+            return str(p)
+
+        for r in rounds:
+            print(f"\n{r.name} | Start: {r.start_time} | End: {r.end_time or 'ongoing...'}")
+            for m in r.matches:
+                left = safe_name(m.player1)
+                right = safe_name(m.player2)
+                print(f"  - {left} ({m.score1}) vs {right} ({m.score2})")
 
     @staticmethod
     def show_ranking(players):
